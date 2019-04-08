@@ -51,7 +51,7 @@ int main()
 			system.step();
 		}
 	}
-
+    system.reset_time();
 	cout << "Ended equilibration. Starting sampling ... \n";
 
 	for(; ti < (int_params.Nt+int_params.Nt_init); ++ti) {

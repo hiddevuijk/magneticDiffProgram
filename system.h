@@ -73,9 +73,13 @@ public:
 	// increment time
 	void step();
 
+    void reset_time() { t=0;}
+
 	bool check_x_in_box();
 	bool check_y_in_box();
 	bool check_z_in_box();
+
+
 
 	void write(const char* outname);
 	
