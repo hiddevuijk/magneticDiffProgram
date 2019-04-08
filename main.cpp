@@ -34,10 +34,7 @@ int main()
 	// start with random config. 
 	system.init_random();
 
-
     Diffusion diffusion(system, int_params.Nt);
-
-	system.write("initial_config.dat");
 
 
 	// integrate Nt_init time steps
@@ -67,11 +64,10 @@ int main()
 		// make t_unit time steps
 		for(unsigned int tti = 0;tti<int_params.t_unit;++tti) 
 			system.step();
-	
-		if( (ti%int_params.sample_freq) == 0 ) {
-           diffusion.sample(system); 
-		}
-
+        	
+        diffusion.sample(system); 
+        int_params.t_unit *= 2;
+        
 	}
 
 
@@ -79,8 +75,7 @@ int main()
 
     diffusion.write("msd.dat");
 
-	// write final configuration
-	system.write("final_config.dat");
+
 	return 0;
 }
 

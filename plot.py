@@ -2,51 +2,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sys import exit
 
-plt.subplot(1,2,1)
-presX = np.loadtxt("pressureX.dat")
-plt.imshow(presX,interpolation="none")
-plt.colorbar()
+tv = 2e-3
+tc = tv/4.
+tr = 2.5e-2
 
-plt.subplot(1,2,2)
-presY = np.loadtxt("pressureY.dat")
-plt.imshow(presY,interpolation="none")
-plt.colorbar()
+msd = np.loadtxt("msd.dat")
 
+t = msd[:,0]
+x = msd[:,1]
+y = msd[:,2]
+z = msd[:,3]
+
+plt.plot(t,x,label="x")
+plt.plot(t,y,label="y")
+plt.plot(t,z,label="z")
+
+plt.axvline(tc,label='tc',color='blue')
+plt.axvline(tv,label="tv",color='red')
+plt.axvline(tr,label='tr',color='green')
+
+plt.yscale('log')
+plt.xscale('log')
+
+plt.legend()
 plt.show()
-
-
-rho = np.loadtxt("rho.dat")
-bins = np.loadtxt("rho_bins.dat")
-
-fx = np.loadtxt("fx.dat")
-fy = np.loadtxt("fy.dat")
-fz = np.loadtxt("fz.dat")
-
-px = np.loadtxt("px.dat")
-py = np.loadtxt("py.dat")
-pz = np.loadtxt("pz.dat")
-
-plt.subplot(2,3,1)
-plt.imshow(rho,interpolation='none')
-plt.title("density")
-plt.colorbar()
-
-plt.subplot(2,3,2)
-plt.imshow(fx,interpolation='none')
-plt.title("flux x")
-
-plt.subplot(2,3,3)
-plt.imshow(fy,interpolation='none')
-plt.title("flux Y")
-
-plt.subplot(2,3,5)
-plt.imshow(px,interpolation='none')
-plt.title("p x")
-
-plt.subplot(2,3,6)
-plt.imshow(py,interpolation='none')
-plt.title("p y")
-
-plt.show()
-
 

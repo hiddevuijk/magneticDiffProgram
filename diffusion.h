@@ -61,12 +61,12 @@ void Diffusion::sample(const System& system)
 
 void Diffusion::write(std::ostream &out)
 {
-    for(unsigned int ti=0;ti<Ti;++ti) {
-        out << t[ti] << '\t';
-        out << msd[ti].x/N << '\t';
-        out << msd[ti].y/N << '\t';
-        out << msd[ti].z/N;
-        if(ti < (Ti-1) ) out << '\n';
+    for(unsigned int i=0;i<Ti;++i) {
+        out << t[i] << '\t';
+        out << msd[i].x/N << '\t';
+        out << msd[i].y/N << '\t';
+        out << msd[i].z/N;
+        if(i < (Ti-1) ) out << '\n';
  
     }
 }
