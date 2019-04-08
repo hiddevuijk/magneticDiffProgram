@@ -34,7 +34,6 @@ int main()
 	// start with random config. 
 	system.init_random();
 
-    Diffusion diffusion(system, int_params.Nt);
 
 
 	// integrate Nt_init time steps
@@ -42,22 +41,22 @@ int main()
 	cout << "Starting with equilibration ...\n";
 	for( ti = 0; ti < int_params.Nt_init; ++ ti) {
 		// print progress
-		if( (ti%int_params.print_freq) == 0 ) {
-			cout << (int_params.Nt_init + int_params.Nt) << '\t';
-			cout << ti << endl;
-		}
+		//if( (ti%int_params.print_freq) == 0 ) {
+		//	cout << (int_params.Nt_init + int_params.Nt) << '\t';
+		//	cout << ti << endl;
+		//}
 		// make t_unit time steps
 		for(unsigned int tti=0; tti < int_params.t_unit; ++tti)	{
 			system.step();
 		}
 	}
     system.reset_time();
+    Diffusion diffusion(system, int_params.Nt);
 	cout << "Ended equilibration. Starting sampling ... \n";
-
-	for(; ti < (int_params.Nt+int_params.Nt_init); ++ti) {
+	for(ti = 0; ti < int_params.Nt; ++ti) {
 		// print progress 
 		if( (ti%int_params.print_freq) == 0 ) {
-			cout << (int_params.Nt_init + int_params.Nt) << '\t';
+			cout << (int_params.Nt) << '\t';
 			cout << ti << endl;
 		}
 
@@ -67,6 +66,8 @@ int main()
         	
         diffusion.sample(system); 
         int_params.t_unit *= 2;
+        //int_params.t_unit += 10;
+
         
 	}
 

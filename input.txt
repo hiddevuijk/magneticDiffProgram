@@ -18,8 +18,8 @@ sigmaW = 0.
 epsilonW = 0.
 
 #integration parameter
-Nt_init = 0
-Nt = 30
+Nt_init = 1000
+Nt = 28
 print_freq = 1
 t_unit = 1
 dt = 0.0000005

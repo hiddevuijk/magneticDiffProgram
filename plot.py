@@ -2,10 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sys import exit
 
-tv = 2e-3
-tc = tv/4.
-tr = 2.5e-2
-
 msd = np.loadtxt("msd.dat")
 
 t = msd[:,0]
@@ -13,17 +9,16 @@ x = msd[:,1]
 y = msd[:,2]
 z = msd[:,3]
 
-plt.plot(t,x,label="x")
-plt.plot(t,y,label="y")
-plt.plot(t,z,label="z")
+plt.scatter(t,x,label="x",color='blue')
+plt.scatter(t,y,label="y",color='red')
+plt.scatter(t,z,label="z",color='green')
 
-plt.axvline(tc,label='tc',color='blue')
-plt.axvline(tv,label="tv",color='red')
-plt.axvline(tr,label='tr',color='green')
+plt.xscale("log")
+plt.yscale("log")
 
-plt.yscale('log')
-plt.xscale('log')
+plt.xlim([0.9*t[0],1.1*t[-1]])
+plt.ylim([1e-12,1e5])
 
 plt.legend()
+plt.tight_layout()
 plt.show()
-
