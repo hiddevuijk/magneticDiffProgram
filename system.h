@@ -171,45 +171,18 @@ System::System(ConfigFile config)
 
 void System::init_random()
 {
-	double l = wall.get_sigma()*pow(2.,1./6.);
-	XYZ zeta;
-	double d;
-
-	// node_pd: nodes per dim
-	int node_pd = ceil(pow(1.*N,1./3));
-	int Nnodes = node_pd*node_pd*node_pd;
-	double node_dist = 0;
-
-	if( wall.get_sigma() > 0.0001) {
-		node_dist = (L-2*l)/(node_pd-1);
-	} else {
-		node_dist = (L-2*l)/node_pd;
-	}
-
-	std::vector<XYZ> nodes(Nnodes);
-	int i=0;
-	for(int xi =0;xi<node_pd;++xi) {
-		for(int yi=0;yi<node_pd;++yi) {
-			for(int zi=0;zi<node_pd;++zi) {
-				nodes[i].x = l+xi*node_dist;
-				nodes[i].y = l+yi*node_dist;
-				nodes[i].z = l+zi*node_dist;
-				++i;
-			}
-		}
-	}
+	
 	for(unsigned int i=0;i<N; ++i) {
-		// pick a random node
-		int ni =  (int)( rudist()*nodes.size() );			
-		r[i] = nodes[ni];
-		nodes.erase(nodes.begin()+ni); // remove node
 
+        r[i].x = rudist()*L;
+        r[i].y = rudist()*L;
+        r[i].z = rudist()*L;
+        
+        system_func::xyz_random_normal(v[i],rndist);
+        v[i] /= sqrt(m);
 
-		// check!!!!!!	
-		v[i].x = (rudist()-1.)/std::sqrt(m);
-		v[i].y = (rudist()-1.)/std::sqrt(m);
-		v[i].z = (rudist()-1.)/std::sqrt(m);
-
+        XYZ zeta;
+        double d;
 		do {
 			zeta.x = 2*rudist() - 1.;
 			zeta.y = 2*rudist() - 1.;
